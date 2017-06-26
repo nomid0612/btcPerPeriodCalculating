@@ -10,7 +10,7 @@ module.exports = {
         conversValueRead: element(by.css('.calculated-for>.calculated-for-value'))
     },
 
-    fillFiled: function(field, fieledValue){
+    fillField: function(field, fieledValue){
         field.clear().sendKeys(fieledValue);
     },
 
@@ -58,10 +58,10 @@ module.exports = {
     calculation: function(timePeroidInDays, hashingPower, hashUnitValue, powerConsumption, energyCostPerKwh, rowNumber ){
         browser.get('https://www.cryptocompare.com/mining/calculator/btc');
         browser.ignoreSynchronization = true;
-        this.fillFiled(this.elements.hashingPowerInput, hashingPower);
+        this.fillField(this.elements.hashingPowerInput, hashingPower);
         this.selectHashUnit(hashUnitValue);
-        this.fillFiled(this.elements.powerConsumptionInput, powerConsumption);
-        this.fillFiled(this.elements.costInput, energyCostPerKwh);
+        this.fillField(this.elements.powerConsumptionInput, powerConsumption);
+        this.fillField(this.elements.costInput, energyCostPerKwh);
         let energyCostForPeriod = this._powerCostCulculation(powerConsumption,energyCostPerKwh,timePeroidInDays);
         let minerPerPeriod = this._minerPerPeriodCulculation(timePeroidInDays,hashingPower,hashUnitValue);
         expect(this.elements.timeRow.get(rowNumber).all(by.css('.calculator-col>.calculator-value')).get(2).getText()).
