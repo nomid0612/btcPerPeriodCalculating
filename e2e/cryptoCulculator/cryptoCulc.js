@@ -51,17 +51,36 @@ module.exports = {
         }
     },
 
+    _rowAccordingTimePeriod:function(timePeroidInDays){
+        let rowNumber;
+        switch(timePeroidInDays) {
+            case 1:
+                return rowNumber = 0;
+                break;
+            case 7:
+                return rowNumber = 1;
+                break;
+            case 30:
+                return rowNumber = 2;
+                break;
+            case 365:
+                return rowNumber = 3;
+                break;
+        }
+    },
+
     _profitPerPeriod:function(minerPerPeriod, cost, conversationRate) {
         return conversationRate*minerPerPeriod - cost
     },
 
-    calculation: function(timePeroidInDays, hashingPower, hashUnitValue, powerConsumption, energyCostPerKwh, rowNumber ){
+    calculation: function(timePeroidInDays, hashingPower, hashUnitValue, powerConsumption, energyCostPerKwh ){
         browser.get('https://www.cryptocompare.com/mining/calculator/btc');
         browser.ignoreSynchronization = true;
         this.fillField(this.elements.hashingPowerInput, hashingPower);
         this.selectHashUnit(hashUnitValue);
         this.fillField(this.elements.powerConsumptionInput, powerConsumption);
         this.fillField(this.elements.costInput, energyCostPerKwh);
+        let rowNumber = this._rowAccordingTimePeriod(timePeroidInDays);
         let energyCostForPeriod = this._powerCostCulculation(powerConsumption,energyCostPerKwh,timePeroidInDays);
         let minerPerPeriod = this._minerPerPeriodCulculation(timePeroidInDays,hashingPower,hashUnitValue);
         expect(this.elements.timeRow.get(rowNumber).all(by.css('.calculator-col>.calculator-value')).get(2).getText()).
@@ -70,10 +89,10 @@ module.exports = {
         toEqual('Ƀ ' + accounting.formatMoney(minerPerPeriod,''));
         let timeRow = this.elements.timeRow;
         this.elements.conversValueRead.getText().then(function (result) {
-            let resultArr = result.split(' ');
-            let conversationRate = parseFloat(resultArr[4]);
-            expect(timeRow.get(rowNumber).all(by.css('.calculator-col>.calculator-value')).get(0).getText()).
-            toEqual('$ ' + accounting.formatMoney((conversationRate*minerPerPeriod) - energyCostForPeriod,''));
+             let resultArr = result.split(' ');
+             let conversationRate = parseFloat(resultArr[4]);
+             expect(timeRow.get(rowNumber).all(by.css('.calculator-col>.calculator-value')).get(0).getText()).
+             toEqual('$ ' + accounting.formatMoney(((conversationRate*minerPerPeriod).toFixed(2)) - energyCostForPeriod,''));
         })
     }
 }
