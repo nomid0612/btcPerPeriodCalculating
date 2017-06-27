@@ -18,9 +18,7 @@ https://nodejs.org/en/download/
 6. Unpack archive with the test
 
 7. Open another command line window 
-   - go to test deirectory in unpacked directory
-   
-       run:
+   - go to test deirectory in unpacked directory and run:
          - [sudo] npm install jasmine-spec-reporter --save-dev
          - [sudo] npm install accounting  --save-dev
          - go to test\e2e
