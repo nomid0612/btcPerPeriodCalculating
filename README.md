@@ -20,8 +20,8 @@ https://nodejs.org/en/download/
 7. Open another command line window 
    - go to test deirectory in unpacked directory
    
- run:
-   - [sudo] npm install jasmine-spec-reporter --save-dev
-   - [sudo] npm install accounting  --save-dev
-   - go to test\e2e
-   - run protractor
+       run:
+         - [sudo] npm install jasmine-spec-reporter --save-dev
+         - [sudo] npm install accounting  --save-dev
+         - go to test\e2e
+         - run protractor
