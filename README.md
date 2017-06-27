@@ -5,8 +5,7 @@ https://nodejs.org/en/download/
 
 2. Install Node.js, default installation 
 
-3. Open command line
-   - Run
+3. Open command line and Run
    - [sudo] npm install -g protractor
 
 
@@ -20,7 +19,7 @@ https://nodejs.org/en/download/
 
 7. Open another command line window 
 - go to test deirectory in unpacked directory
-- run
+ run:
 - [sudo] npm install jasmine-spec-reporter --save-dev
 - [sudo] npm install accounting  --save-dev
 - go to test\e2e
